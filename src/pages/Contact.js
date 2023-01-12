@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 import api from "../api";
-import checked from "../assets/images/checked.svg";
-import unchecked from "../assets/images/unchecked.svg";
+import InputBox from '../components/InputBox';
+import TextArea from '../components/TextArea';
+import CheckBox from '../components/CheckBox';
+import Button from '../components/Button';
 import { useNavigate } from "react-router-dom";
 import openCloseNav from "../helper/openclosenav";
 
@@ -30,7 +32,10 @@ function Contact() {
   }, []);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
 
     if (!fromName) {
       setErrorFromName("Please enter from name.");
@@ -148,124 +153,17 @@ function Contact() {
         <div className="contact-container">
           <div className="contact-form-area">
             <div className="contact-form">
-              <form onSubmit={handleSubmit}>
-                <div className="form-item">
-                  <h4>From Name *</h4>
-                  <input
-                    type="text"
-                    name="fromName"
-                    className="form-input"
-                    defaultValue={fromName}
-                    onKeyUp={(e) => {
-                      setFromName(e.target.value);
-                    }}
-                  />
-                  {errorFromName?.length > 0 && (
-                    <span className="error">{errorFromName}</span>
-                  )}
-                </div>
-                <div className="form-item">
-                  <h4>From Email *</h4>
-                  <input
-                    type="email"
-                    name="fromEmail"
-                    className="form-input"
-                    defaultValue={fromEmail}
-                    onKeyUp={(e) => {
-                      setFromEmail(e.target.value);
-                    }}
-                  />
-                  {errorFromEmail?.length > 0 && (
-                    <span className="error">{errorFromEmail}</span>
-                  )}
-                </div>
-                <div className="form-item">
-                  <h4>To Name *</h4>
-                  <input
-                    type="text"
-                    name="toName"
-                    className="form-input"
-                    defaultValue={toName}
-                    onKeyUp={(e) => {
-                      setToName(e.target.value);
-                    }}
-                  />
-                  {errorToName?.length > 0 && (
-                    <span className="error">{errorToName}</span>
-                  )}
-                </div>
-                <div className="form-item">
-                  <h4>To Email *</h4>
-                  <input
-                    type="email"
-                    name="toEmail"
-                    className="form-input"
-                    defaultValue={toEmail}
-                    onKeyUp={(e) => {
-                      setToEmail(e.target.value);
-                    }}
-                  />
-                  {errorToEmail?.length > 0 && (
-                    <span className="error">{errorToEmail}</span>
-                  )}
-                </div>
-                <div className="form-item">
-                  <h4>Subject *</h4>
-                  <input
-                    type="text"
-                    name="subject"
-                    className="form-input"
-                    defaultValue={subject}
-                    onKeyUp={(e) => {
-                      setSubject(e.target.value);
-                    }}
-                  />
-                  {errorSubject?.length > 0 && (
-                    <span className="error">{errorSubject}</span>
-                  )}
-                </div>
-                <div className="form-item">
-                  <h4>Body</h4>
-                  <textarea
-                    className="form-input-ta"
-                    onChange={(e) => setBody(e.target.value)}
-                  >
-                    {body}
-                  </textarea>
-                  {errorBody?.length > 0 && (
-                    <span className="error">{errorBody}</span>
-                  )}
-                </div>
-                <div className="form-item w-check">
-                  <img
-                    className="checkbox-image"
-                    src={isProvider1 ? checked : unchecked}
-                    alt="checkbox"
-                    onClick={() => onSetProvider1()}
-                  />
-                  <p>
-                     Provider 1
-                  </p>
-                  <img
-                    className="checkbox-image"
-                    src={isProvider2 ? checked : unchecked}
-                    alt="checkbox"
-                    onClick={() => onSetProvider2()}
-                  />
-                  <p>
-                     Provider 2
-                  </p>
-                </div>
-                <div className="form-btn-area">
-                  <button
-                    className="form-sbmt footer-btn"
-                    type="submit"
-                    disabled={!isProvider1&&!isProvider2}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
+              <InputBox placeholder="From Name" label="From Name *" type="text" value={fromName} onChange={setFromName} className="mt-2" error={errorFromName}/>
+              <InputBox placeholder="From Email" label="From Email *" type="email" value={fromEmail} onChange={setFromEmail} className="mt-2" error={errorFromEmail}/>
+              <InputBox placeholder="To Name" label="To Name *" type="text" value={toName} onChange={setToName} className="mt-2" error={errorToName}/>
+              <InputBox placeholder="To Email" label="To Email *" type="email" value={toEmail} onChange={setToEmail} className="mt-2" error={errorToEmail}/>
+              <InputBox placeholder="Subject" label="Subject *" type="text" value={subject} onChange={setSubject} className="mt-2" error={errorSubject}/>
+              <TextArea placeholder="Body" label="Body *" value={body} onChange={setBody} className="mt-2" error={errorBody}/>
+              <div className="provider-row mt-2">
+                <CheckBox label="Provider 1" type="text" isChecked={isProvider1} onClick={onSetProvider1}/>
+                <CheckBox label="Provider 2" type="text" isChecked={isProvider2} onClick={onSetProvider2}/>
+              </div>
+              <Button label="Submit" onClick={handleSubmit}/>
             </div>
           </div>
         </div>
