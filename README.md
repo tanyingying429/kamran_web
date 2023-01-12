@@ -22,7 +22,7 @@ It is because reusing stateful logic without changing component hierarchy.
 
 ## A screenshot/gif of what was made
 
-<a href="https://drive.google.com/file/d/1epjXafRBLgUXm8_8LSKk2jFAAV3t9OI0/view?usp=sharing"target="_blank">Here</a> is a video showing how the web site works.
+<a href="https://drive.google.com/file/d/1epjXafRBLgUXm8_8LSKk2jFAAV3t9OI0/view?usp=sharing" target="_blank">Here</a> is a video showing how the web site works.
 
 ## What you would do if you had more time
 
